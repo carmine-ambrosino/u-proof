@@ -33,7 +33,8 @@
         <form action="/" method="post">
           <div class="link-input">
             <input
-              type="text"
+              type="url"
+              id="url-input"
               name="url"
               placeholder="https://www.example.com"
               required
@@ -41,12 +42,18 @@
           </div>
 
           <div class="actions">
-            <button name="button" type="submit" class="btn">Check</button>
+            <button id="submit-btn" name="button" type="submit" class="btn">Scan</button>
           </div>
         </form>
 
+        <div id="response-container"></div>
+
         <div class="form-footer">Made with ❤️</div>
+
       </div>
     </div>
+
+    <script src="{{ url_for('static', filename='/js/script.js') }}"></script>
+
   </body>
 </html>
