@@ -56,6 +56,14 @@ body {
   margin: 0px 0px 11px 0px;
 }
 
+#url-input.invalid {
+  border-color: red;
+}
+
+#url-input.valid {
+  border-color: #000065;
+}
+
 .actions {
   text-align: center;
 }
@@ -81,9 +89,15 @@ body {
   width: 100%;
 }
 
-.actions .btn:hover {
+.actions .btn:not(:disabled):hover {
   background-color: #333399;
 }
+
+.btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
 
 .form-footer {
   text-align: center;
