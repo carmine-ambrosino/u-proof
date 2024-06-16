@@ -10,13 +10,15 @@ def index():
 
 @app.route('/extract_features', methods=['POST'])
 def extract_features_api():
-    request_data = request.get_json()
-
-    if 'url' not in request_data:
-        return jsonify({'error': 'URL not found in JSON request'}), 400
-
-    url = request_data['url']
+    data = request.json
+    url = data.get('url')
+    if not url:
+        return jsonify({'error': 'URL is required'}), 400
+    
     features = extract_features(url)
+    if features is None:
+        return jsonify({'error': 'Failed to extract features'}), 500
+    
     return jsonify(features), 200
 
 
