@@ -1,0 +1,126 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 700px;
+}
+
+.logo-container {
+  margin: 50px 50px 0 50px;
+}
+
+#logo {
+  width: 445px;
+  height: 190px;
+}
+
+.lead {
+  text-align: left;
+  color: #000;
+  font-size: 17px;
+  line-height: 22px;
+  margin: 0px 0px 30px 5px;
+}
+
+.form-container {
+  justify-content: center;
+  margin: 50px auto;
+  max-width: 450px;
+  width: 371.85px;
+  height: 195.4px;
+  padding: 20px 20px 50px;
+}
+
+.link-input input {
+  background: #f9fafb;
+  border: 2px solid #f9fafb;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #000065;
+  display: block;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  outline: 0;
+  padding: 10px 16px;
+  resize: vertical;
+  width: 100%;
+  margin: 0px 0px 11px 0px;
+}
+
+.actions {
+  text-align: center;
+}
+
+.actions .btn {
+  background: #000065;
+  border: 0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  height: auto;
+  line-height: 22px;
+  margin: 15px 10px 15px 0px;
+  outline: 0;
+  padding: 7px 18px;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+}
+
+.actions .btn:hover {
+  background-color: #333399;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    max-width: 90%;
+  }
+
+  .logo-container {
+    margin: 10% 5% 0 5%;
+  }
+
+  .lead {
+    margin: 0 5% 3% 5%;
+  }
+
+  .form-container {
+    margin: 10% auto;
+  }
+
+  /* Media query for 450px screen*/
+  @media only screen and (max-width: 450px) {
+    #logo {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  @media only screen and (max-width: 385px) {
+    .form-container {
+      max-width: 280px;
+      padding: 2% 2% 3%;
+    }
+  }
+}

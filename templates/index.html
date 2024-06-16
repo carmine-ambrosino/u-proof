@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>u-proof</title>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='/images/favicon.ico') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo-container">
+        <img
+          src="{{ url_for('static', filename='/images/uproof.png') }}"
+          id="logo"
+          alt="u-proof logo"
+        />
+      </div>
+
+      <div class="form-container">
+        <p class="lead">
+          Insert link below, to check <strong>phishing link</strong>.
+        </p>
+
+        <form action="/" method="post">
+          <div class="link-input">
+            <input
+              type="text"
+              name="url"
+              placeholder="https://www.example.com"
+              required
+            />
+          </div>
+
+          <div class="actions">
+            <button name="button" type="submit" class="btn">Check</button>
+          </div>
+        </form>
+
+        <div class="form-footer">Made with ❤️</div>
+      </div>
+    </div>
+  </body>
+</html>
