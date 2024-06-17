@@ -1,27 +1,21 @@
-from flask import Flask, request, jsonify, render_template
-from utils.feature_extraction import extract_features
-
-app = Flask(__name__)
-
-@app.route("/")
-def index():
-    return render_template('index.html')
+from flask import Flask
+from flask_cors import CORS
+from routes import routes_bp
+from error_handler import error_handler_bp
 
 
-@app.route('/extract_features', methods=['POST'])
-def extract_features_api():
-    data = request.json
-    url = data.get('url')
-    if not url:
-        return jsonify({'error': 'URL is required'}), 400
-    
-    features = extract_features(url)
-    if features is None:
-        return jsonify({'error': 'Failed to extract features'}), 500
-    
-    return jsonify(features), 200
+def create_app():
+    application = Flask(__name__)
+
+    # CORS(application)
+
+    # Routes
+    application.register_blueprint(routes_bp)
+    application.register_blueprint(error_handler_bp)
+
+    return application
 
 
-
+# More setup for flask app
 if __name__ == '__main__':
     app.run(debug=True)

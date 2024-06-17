@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    fetch("/extract_features", {
+    fetch("/api/v1/extract_features", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
