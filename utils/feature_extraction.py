@@ -1,6 +1,37 @@
 import re
 import requests
 from bs4 import BeautifulSoup
+from joblib import load
+import numpy as np
+import pandas as pd
+
+model = load('phishing_model.joblib')
+
+def predict_phishing(features):
+    feature_names = [
+        'SpecialCharRatioInURL', 'LetterRatioInURL', 'IsHTTPS', 'HasPortNumber', 
+        'HasDescription', 'HasSocialNet', 'HasFavicon', 'IsResponsive', 
+        'HasTitle', 'HasHiddenFields', 'URLLength', 'NoOfSpecialCharsInURL'
+    ]
+    
+    # Sort features according to the list of feature names
+    feature_values = [features[name] for name in feature_names]
+    
+    # Create a DataFrame with the features
+    feature_df = pd.DataFrame([feature_values], columns=feature_names)
+
+    prediction = model.predict(feature_df)[0]
+    prediction_proba = model.predict_proba(feature_df)[0]
+
+    result = {
+        'prediction': 'phishing' if prediction == 0 else 'legitimate',
+        'prediction_proba': {
+            'phishing': prediction_proba[0],
+            'legitimate': prediction_proba[1]
+        }
+    }
+
+    return result
 
 def extract_features(url):
     features = extract_url_features(url)
@@ -16,16 +47,16 @@ def extract_url_features(url):
     Extracts features directly from the URL.
     """
     features = {}
-    features['is_https'] = 1 if url.startswith('https') else 0
-    features['has_port_number'] = 1 if re.search(r':[0-9]', url) else 0
+    features['IsHTTPS'] = 1 if url.startswith('https') else 0
+    features['HasPortNumber'] = 1 if re.search(r':[0-9]', url) else 0
 
     letters_count = sum(c.isalpha() for c in url)
-    features['url_letter_ratio'] = letters_count / len(url) if len(url) > 0 else 0.0
+    features['LetterRatioInURL'] = letters_count / len(url) if len(url) > 0 else 0.0
 
     special_chars_count = len(re.findall(r'[^a-zA-Z0-9]', url))
-    features['url_special_chars_ratio'] = special_chars_count / len(url) if len(url) > 0 else 0.0
-    features['url_special_chars'] = special_chars_count
-    features['url_length'] = len(url)
+    features['SpecialCharRatioInURL'] = special_chars_count / len(url) if len(url) > 0 else 0.0
+    features['NoOfSpecialCharsInURL'] = special_chars_count
+    features['URLLength'] = len(url)
 
     # features['letter_count'] = letters_count
 
@@ -45,12 +76,12 @@ def extract_html_features(url):
         soup = BeautifulSoup(response.content, 'html.parser')
 
         features = {}
-        features['has_description'] = check_description(soup)
-        features['has_favicon'] = check_favicon(soup)
-        features['is_responsive'] = check_responsive(soup)
-        features['has_hidden_fields'] = check_hidden_fields(soup)
-        features['has_title'] = check_title(soup)
-        features['has_social_net'] = check_social_net(soup)
+        features['HasDescription'] = check_description(soup)
+        features['HasFavicon'] = check_favicon(soup)
+        features['IsResponsive'] = check_responsive(soup)
+        features['HasHiddenFields'] = check_hidden_fields(soup)
+        features['HasTitle'] = check_title(soup)
+        features['HasSocialNet'] = check_social_net(soup)
         
         return features
 
