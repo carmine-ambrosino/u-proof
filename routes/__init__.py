@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, request, jsonify
-from utils.feature_extraction import extract_features
+from utils.feature_extraction import extract_features, predict_phishing
 
 routes_bp = Blueprint('routes', __name__, url_prefix='/', template_folder='templates', static_folder='static')
 
@@ -25,7 +25,16 @@ def extract_features_api():
     if features is None:
         return jsonify({'error': 'Failed to extract features'}), 500
     
-    return jsonify(features), 200
+    prediction_result = predict_phishing(features)
+
+    # Combine features and prediction result
+    response = {
+        'features': features,
+        **prediction_result
+    }
+
+    return jsonify(response), 200
+
 # ---------------
 
 
