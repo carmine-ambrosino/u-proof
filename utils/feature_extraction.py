@@ -5,13 +5,12 @@ from joblib import load
 import numpy as np
 import pandas as pd
 
-model = load('phishing_model.joblib')
+model = load('u_proof_model_rf.pkl')
 
 def predict_phishing(features):
     feature_names = [
-        'SpecialCharRatioInURL', 'LetterRatioInURL', 'IsHTTPS', 'HasPortNumber', 
-        'HasDescription', 'HasSocialNet', 'HasFavicon', 'IsResponsive', 
-        'HasTitle', 'HasHiddenFields', 'URLLength', 'NoOfSpecialCharsInURL'
+        'IsHTTPS', 'HasPortNumber', 'HasDescription', 'HasSocialNet', 
+        'HasFavicon', 'IsResponsive', 'HasTitle', 'HasHiddenFields'
     ]
     
     # Sort features according to the list of feature names
@@ -19,6 +18,7 @@ def predict_phishing(features):
     
     # Create a DataFrame with the features
     feature_df = pd.DataFrame([feature_values], columns=feature_names)
+    # print(feature_df[['SpecialCharRatioInURL', 'LetterRatioInURL',  'NoOfSpecialCharsInURL', 'HasHiddenFields']])
 
     prediction = model.predict(feature_df)[0]
     prediction_proba = model.predict_proba(feature_df)[0]
@@ -50,13 +50,13 @@ def extract_url_features(url):
     features['IsHTTPS'] = 1 if url.startswith('https') else 0
     features['HasPortNumber'] = 1 if re.search(r':[0-9]', url) else 0
 
-    letters_count = sum(c.isalpha() for c in url)
-    features['LetterRatioInURL'] = letters_count / len(url) if len(url) > 0 else 0.0
+    # letters_count = sum(c.isalpha() for c in url)
+    # features['LetterRatioInURL'] = letters_count / len(url) if len(url) > 0 else 0.0
 
-    special_chars_count = len(re.findall(r'[^a-zA-Z0-9]', url))
-    features['SpecialCharRatioInURL'] = special_chars_count / len(url) if len(url) > 0 else 0.0
-    features['NoOfSpecialCharsInURL'] = special_chars_count
-    features['URLLength'] = len(url)
+    # special_chars_count = len(re.findall(r'[^a-zA-Z0-9]', url))
+    # features['SpecialCharRatioInURL'] = special_chars_count / len(url) if len(url) > 0 else 0.0
+    # features['NoOfSpecialCharsInURL'] = special_chars_count
+    # features['URLLength'] = len(url)
 
     # features['letter_count'] = letters_count
 
