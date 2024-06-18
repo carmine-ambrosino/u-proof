@@ -23,15 +23,36 @@ document.addEventListener("DOMContentLoaded", function () {
                 loadingElement.style.display = 'none';
                 resultsContainer.style.display = 'block';
 
-                const fieldsToShow = ['prediction', 'prediction_proba']; 
+                const fieldsToShow = ['url','prediction', 'prediction_proba']; 
                 fieldsToShow.forEach(field => {
                     if (data[field]) {
+
+                        if (field === 'prediction_proba' && typeof data[field] === 'object') {
+                            
+                            // Search Max value field
+                            const subFields = data[field];
+                            const maxField = Object.keys(subFields).reduce((a, b) => subFields[a] > subFields[b] ? a : b);
+
+                            const fieldElement = document.createElement('div');
+                            fieldElement.className = 'result-field';
+
+                            const fieldName = document.createElement('strong');
+                            fieldName.textContent = `Prob ${maxField}: `;
+                            fieldElement.appendChild(fieldName);
+
+                            const fieldValue = document.createTextNode(subFields[maxField]);
+                            fieldElement.appendChild(fieldValue);
+
+                            resultsContainer.appendChild(fieldElement);
+                        }
+
+
                         const fieldElement = document.createElement('div');
                         fieldElement.className = 'result-field';
                         
-                        const fieldName = document.createElement('strong');
-                        fieldName.textContent = `${field}: `;
-                        fieldElement.appendChild(fieldName);
+                        // const fieldName = document.createElement('strong');
+                        // fieldName.textContent = `${field}: `;
+                        // fieldElement.appendChild(fieldName);
                         
                         const fieldValue = document.createTextNode(data[field]);
                         fieldElement.appendChild(fieldValue);

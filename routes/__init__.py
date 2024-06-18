@@ -29,6 +29,7 @@ def extract_features_api():
 
     # Combine features and prediction result
     response = {
+        'url': url,
         'features': features,
         **prediction_result
     }
