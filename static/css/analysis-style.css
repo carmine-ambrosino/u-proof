@@ -31,6 +31,28 @@ body {
   text-align: center;
 }
 
+.result-field {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.back-home {
+  display: inline-block;
+  width: 30px;
+  height: 35px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #000065;
+  text-decoration: none;
+}
+
+#loading{
+  text-align: center;
+  font-size: 35px;
+}
+
 .form-footer {
   text-align: center;
   margin-top: 30px;

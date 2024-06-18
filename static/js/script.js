@@ -2,13 +2,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const urlInput = document.getElementById("url-input");
   const submitBtn = document.getElementById("submit-btn");
   const urlForm = document.getElementById("url-form");
-  const responseContainer = document.getElementById("response-container");
 
+  // function isValidUrl(url) {
+  //   const urlPattern =
+  //     /^(https?:\/\/)?([a-zA-Z\d\-._~%!$&'()*+,;=:]+@)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*\.)+[a-zA-Z]{2,})|(\d{1,3}\.){3}\d{1,3})(:\d{1,5})?(\/[^\s]*)?$/;
+  //   return urlPattern.test(url);
+  // }
+
+  
   function isValidUrl(url) {
-    const urlPattern =
-      /^(https?:\/\/)?([a-zA-Z\d\-._~%!$&'()*+,;=:]+@)?((([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*\.)+[a-zA-Z]{2,})|(\d{1,3}\.){3}\d{1,3})(:\d{1,5})?(\/[^\s]*)?$/;
-    return urlPattern.test(url);
+    const urlPattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+      "((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-zA-Z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-zA-Z\\d_]*)?$", "i"
+    );
+    return !!urlPattern.test(url);
   }
+
 
   function validateUrl() {
     const urlValue = urlInput.value;
@@ -28,30 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    fetch("/api/v1/extract_features", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url: url }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        displayResponse(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
-
-  function displayResponse(data) {
-    responseContainer.innerHTML =
-      "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+    sessionStorage.setItem('url', url);
+    window.location.href = '/api/v1/url';
   }
 
   urlInput.addEventListener("input", validateUrl);

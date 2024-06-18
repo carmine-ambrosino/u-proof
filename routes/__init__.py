@@ -14,7 +14,7 @@ def index():
 # ---------------
 
 # ---- EXTRACT FEATURES ----
-@routes_bp.route('/api/v1/extract_features', methods=['POST'])
+@routes_bp.route('/api/v1/predict', methods=['POST'])
 def extract_features_api():
     data = request.json
     url = data.get('url')

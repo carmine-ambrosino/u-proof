@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-proof</title>
+    <title>u-proof prediction</title>
 
     <link
       rel="icon"
@@ -25,16 +25,16 @@
         />
       </div>
 
-        <div id="response-container">
-            <p><b>Response</b></p>
-        </div>
-
-        <div class="form-footer">Made with ❤️</div>
+      <a href="/api/v1" class="back-home">❮</a>
+      <div id="loading"><strong>💭... Prediction ... 💭</strong></div>
+      <div id="results-container" style="display:none;"></div>
+      
+      <div class="form-footer">Made with ❤️</div>
 
       </div>
     </div>
 
-    <!-- <script src="{{ url_for('static', filename='js/script.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
 
   </body>
 </html>
