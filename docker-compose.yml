@@ -1,0 +1,28 @@
+# -------------------------------------------------------
+# Docker Compose for production
+# -------------------------------------------------------
+version: '3.8'
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "8081:80"
+      - "9090:443"
+    networks:
+      - appnet
+    depends_on:
+      - app
+      
+  app:
+    build: ./app
+    hostname: application
+    expose:
+      - 5000
+    networks:
+      - appnet
+    volumes:
+      - ./app:/app
+
+networks:
+  appnet:

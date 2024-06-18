@@ -1,11 +1,13 @@
 import re
 import requests
+import os
 from bs4 import BeautifulSoup
 from joblib import load
 import numpy as np
 import pandas as pd
 
-model = load('u_proof_model_rf.pkl')
+model_file = os.path.join(os.path.dirname(__file__), '../u_proof_model_rf.pkl')
+model = load(model_file)
 
 def predict_phishing(features):
     feature_names = [
