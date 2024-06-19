@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>u-proof prediction</title>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/analysis-style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo-container">
+        <a href="/api/v1">
+          <img
+            src="{{ url_for('static', filename='images/uproof.png') }}"
+            id="logo"
+            alt="u-proof logo"
+          />
+        </a>
+      </div>
+
+      <a href="/api/v1" class="back-home">❮</a>
+      <div id="loading"><strong>💭... Prediction ... 💭</strong></div>
+      <div id="results-container" style="display:none;"></div>
+      
+      <div class="form-footer">Made with ❤️</div>
+
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+
+  </body>
+</html>

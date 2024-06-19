@@ -1,5 +1,16 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #f4f4f9;
   margin: 0;
   padding: 0;
@@ -97,7 +108,6 @@ body {
   background-color: #cccccc;
   cursor: not-allowed;
 }
-
 
 .form-footer {
   text-align: center;

@@ -27,7 +27,7 @@
 
       <div class="form-container">
         <p class="lead">
-          Insert link below, to check <strong>phishing link</strong>.
+          Check <i>phishing link</i> with <strong>u-proof</strong> (ML model).
         </p>
 
         <form id="url-form" action="/" method="post">
@@ -42,18 +42,22 @@
           </div>
 
           <div class="actions">
-            <button id="submit-btn" name="button" type="submit" class="btn" disabled>Scan</button>
+            <button
+              id="submit-btn"
+              name="button"
+              type="submit"
+              class="btn"
+              disabled
+            >
+              Scan
+            </button>
           </div>
         </form>
 
-        <div id="response-container"></div>
-
         <div class="form-footer">Made with ❤️</div>
-
       </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
   </body>
 </html>

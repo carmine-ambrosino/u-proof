@@ -24,11 +24,8 @@ def predict_phishing(features):
     prediction_proba = model.predict_proba(feature_df)[0]
 
     result = {
-        'prediction': 'phishing' if prediction == 0 else 'legitimate',
-        'prediction_proba': {
-            'phishing': prediction_proba[0],
-            'legitimate': prediction_proba[1]
-        }
+        'prediction': 'Phishing' if prediction == 0 else 'Legitimate',
+        'prediction_proba':  prediction_proba[0]*100 if prediction == 0 else prediction_proba[1]*100
     }
 
     return result
@@ -49,20 +46,7 @@ def extract_url_features(url):
     features = {}
     features['IsHTTPS'] = 1 if url.startswith('https') else 0
     features['HasPortNumber'] = 1 if re.search(r':[0-9]', url) else 0
-
-    # letters_count = sum(c.isalpha() for c in url)
-    # features['LetterRatioInURL'] = letters_count / len(url) if len(url) > 0 else 0.0
-
-    # special_chars_count = len(re.findall(r'[^a-zA-Z0-9]', url))
-    # features['SpecialCharRatioInURL'] = special_chars_count / len(url) if len(url) > 0 else 0.0
-    # features['NoOfSpecialCharsInURL'] = special_chars_count
-    # features['URLLength'] = len(url)
-
-    # features['letter_count'] = letters_count
-
-    # features['num_dashes'] = url.count('-')
-    # features['num_dots'] = url.count('.')
-
+    
     return features
 
 def extract_html_features(url):
@@ -146,3 +130,20 @@ def check_social_net(soup):
             return 1
 
     return 0
+
+def check_url(url):
+    """
+    Checks if the url exists.
+    """
+    try:
+        # Send a GET request to the link
+        response = requests.get(url)
+        # Check if the status code is 200 (OK)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    except requests.exceptions.RequestException as e:
+        # In case of exceptions
+        print(f"RequestException: {e}")
+        return False

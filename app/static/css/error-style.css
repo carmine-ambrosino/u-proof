@@ -1,5 +1,16 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #f4f4f9;
   margin: 0;
   padding: 0;
@@ -22,13 +33,14 @@ body {
   height: 190px;
 }
 
-#response-container {
-  background: #f9fafb;
-  border: 2px solid #f9fafb;
-  border-radius: 10px;
-  box-sizing: border-box;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+.error-container {
   text-align: center;
+  font-size: 35px;
+}
+
+.err-msg {
+  font-size: 25px;
+  margin-top: 3px;
 }
 
 .form-footer {
@@ -52,6 +64,15 @@ body {
     #logo {
       width: 100%;
       height: auto;
+    }
+
+    .error-container {
+      font-size: 25px;
+    }
+
+    .err-msg {
+      font-size: 15px;
+      margin-top: 3px;
     }
   }
 }
