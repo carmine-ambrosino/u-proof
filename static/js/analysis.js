@@ -1,72 +1,74 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const resultsContainer = document.getElementById('results-container');
-    const loadingElement = document.getElementById('loading');
-    const url = sessionStorage.getItem('url');
+  const resultsContainer = document.getElementById("results-container");
+  const loadingElement = document.getElementById("loading");
+  const url = sessionStorage.getItem("url");
 
-    if (url) {
-        fetch("/api/v1/predict", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ url: url }),
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            //Add a 1s wait before showing the data
-            setTimeout(() => {
-                loadingElement.style.display = 'none';
-                resultsContainer.style.display = 'block';
+  if (url) {
+    fetch("/api/v1/predict", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: url }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Add wait 150 ms to show prediction
+        setTimeout(() => {
+          loadingElement.style.display = "none";
+          resultsContainer.style.display = "block";
 
-                const fieldsToShow = ['url','prediction', 'prediction_proba']; 
-                fieldsToShow.forEach(field => {
-                    if (data[field]) {
+          // Bar block
+          if (data.prediction && data.prediction_proba) {
+            const progressContainer = document.createElement("div");
+            progressContainer.className = "progress-container";
 
-                        if (field === 'prediction_proba' && typeof data[field] === 'object') {
-                            
-                            // Search Max value field
-                            const subFields = data[field];
-                            const maxField = Object.keys(subFields).reduce((a, b) => subFields[a] > subFields[b] ? a : b);
+            const progressBar = document.createElement("div");
+            progressBar.className = "progress";
 
-                            const fieldElement = document.createElement('div');
-                            fieldElement.className = 'result-field';
+            const progressTitle = document.createElement("div");
+            progressTitle.className = "progress-title";
+            progressTitle.textContent = `${data.prediction}`;
+            progressContainer.appendChild(progressTitle);
 
-                            const fieldName = document.createElement('strong');
-                            fieldName.textContent = `Prob ${maxField}: `;
-                            fieldElement.appendChild(fieldName);
+            const progressBarFill = document.createElement("div");
+            progressBarFill.className = "progress-bar";
+            progressBarFill.id = `progress-bar-${data.prediction}`;
+            progressBarFill.style.width = `${data.prediction_proba}%`;
 
-                            const fieldValue = document.createTextNode(subFields[maxField]);
-                            fieldElement.appendChild(fieldValue);
+            precentage = data.prediction_proba.toString().substring(0, 5);
+            progressBarFill.textContent = `${precentage}%`;
+            progressBar.appendChild(progressBarFill);
 
-                            resultsContainer.appendChild(fieldElement);
-                        }
+            progressContainer.appendChild(progressBar);
+            resultsContainer.appendChild(progressContainer);
+          }
+
+          // Url block
+          if (data.url) {
+            const urlFieldElement = document.createElement("div");
+            urlFieldElement.className = "result-field";
+            urlFieldElement.id = "rf-url";
+
+            const urlFieldValue = document.createTextNode(data.url);
+            urlFieldElement.appendChild(urlFieldValue);
+
+            resultsContainer.appendChild(urlFieldElement);
+          }
 
 
-                        const fieldElement = document.createElement('div');
-                        fieldElement.className = 'result-field';
-                        
-                        // const fieldName = document.createElement('strong');
-                        // fieldName.textContent = `${field}: `;
-                        // fieldElement.appendChild(fieldName);
-                        
-                        const fieldValue = document.createTextNode(data[field]);
-                        fieldElement.appendChild(fieldValue);
-                        
-                        resultsContainer.appendChild(fieldElement);
-                    }
-                });
-            }, 150); // Wait 100ms)
-        })
-        .catch((error) => {
-            loadingElement.textContent = "Error loading data";
-            console.error("Error:", error);
-        });
-    } else {
-        loadingElement.textContent = "No URL provided";
-    }
+        }, 150); // Wait 150ms
+      })
+      .catch((error) => {
+        loadingElement.textContent = "⚠️ URL error";
+        console.error("Error:", error);
+      });
+  } else {
+    loadingElement.textContent = "⚠️ No URL provided";
+  }
 });

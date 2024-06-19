@@ -32,8 +32,7 @@ body {
 }
 
 .result-field {
-  margin: 10px 0;
-  font-size: 18px;
+  margin: 33px 0;
   text-align: center;
 }
 
@@ -52,7 +51,9 @@ body {
 #loading{
   text-align: center;
   font-size: 35px;
+  font-weight: bold;
 }
+
 
 .form-footer {
   text-align: center;
@@ -60,6 +61,62 @@ body {
   font-size: 0.9em;
   color: #777;
 }
+
+.progress {
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  height: 33px;
+  margin: 0px 86px 0px 86px
+}
+
+.progress-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  border-radius: 10px;
+  transition: width 0.3s ease-in-out, background-size 0.3s ease-in-out;
+}
+
+/* .progress {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #E9ECEF;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 30px;
+  transition: width 1s;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  line-height: 30px;
+} */
+
+#progress-bar-Phishing{
+  background: linear-gradient(90deg, #c5031d,red)
+}
+
+#progress-bar-Legitimate{
+  background: linear-gradient(90deg, #4caf50, #81c784);
+}
+
+.progress-title {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
 
 @media only screen and (max-width: 600px) {
   .container {

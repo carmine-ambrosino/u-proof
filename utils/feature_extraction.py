@@ -24,11 +24,8 @@ def predict_phishing(features):
     prediction_proba = model.predict_proba(feature_df)[0]
 
     result = {
-        'prediction': 'phishing' if prediction == 0 else 'legitimate',
-        'prediction_proba': {
-            'phishing': prediction_proba[0],
-            'legitimate': prediction_proba[1]
-        }
+        'prediction': 'Phishing' if prediction == 0 else 'Legitimate',
+        'prediction_proba':  prediction_proba[0]*100 if prediction == 0 else prediction_proba[1]*100
     }
 
     return result
