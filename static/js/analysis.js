@@ -60,8 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             resultsContainer.appendChild(urlFieldElement);
           }
-
-
         }, 150); // Wait 150ms
       })
       .catch((error) => {
