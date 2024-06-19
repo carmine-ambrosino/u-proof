@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from joblib import load
 import numpy as np
 import pandas as pd
+import requests
 
 model_file = os.path.join(os.path.dirname(__file__), '../u_proof_model_rf.pkl')
 model = load(model_file)
@@ -148,3 +149,20 @@ def check_social_net(soup):
             return 1
 
     return 0
+
+def check_url(url):
+    """
+    Checks if the url exists.
+    """
+    try:
+        # Send a GET request to the link
+        response = requests.get(url)
+        # Check if the status code is 200 (OK)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    except requests.exceptions.RequestException as e:
+        # In case of exceptions
+        print(f"RequestException: {e}")
+        return False
