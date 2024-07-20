@@ -4,10 +4,13 @@ from routes import routes_bp
 from error_handler import error_handler_bp
 
 
-def create_app():
+def create_app(config_name='development'):
     application = Flask(__name__)
 
-    # CORS(application)
+    CORS(application)
+
+    # App Configuration
+    application.config.from_object(config_by_name[config_name])
 
     # Routes
     application.register_blueprint(routes_bp)
