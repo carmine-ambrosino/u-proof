@@ -17,7 +17,7 @@ def predict_phishing(features):
     ]
     
     # Sort features according to the list of feature names
-    feature_values = [features[name] for name in feature_names]
+    feature_values = [features.get(name, 0) for name in feature_names]
     
     # Create a DataFrame with the features
     feature_df = pd.DataFrame([feature_values], columns=feature_names)

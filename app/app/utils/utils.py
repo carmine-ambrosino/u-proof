@@ -1,18 +1,28 @@
 import numpy as np
 import validators
 import requests
+from requests.exceptions import SSLError, RequestException
 from collections import Counter
 
 def check_url(url):
+    if not validators.url(url):
+        return False
+
     try:
-        if validators.url(url):
-            response = requests.get(url)
+        response = requests.get(url, timeout=10)
+        if response.status_code == 200:
+            return True
+    except SSLError:
+        try:
+            response = requests.get(url, timeout=10, verify=False)
             if response.status_code == 200:
                 return True
-    except Exception as e:
-        print(f"Exception: {e}")
-    return False
+        except RequestException as e:
+            print(f"Error fetching URL {url} after SSL failure: {e}")
+    except RequestException as e:
+        print(f"Error fetching URL {url}: {e}")
 
+    return False
 
 def get_final_prediction(ml_pred, llm_pred):
     data = [ml_pred]+llm_pred
