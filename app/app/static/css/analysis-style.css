@@ -25,7 +25,9 @@ body {
 }
 
 .logo-container {
+  display: grid;
   margin: 50px 50px 0 50px;
+  justify-content: center;
 }
 
 #logo {
@@ -74,7 +76,7 @@ body {
 
 .progress-title {
   margin: 10px 95px 15px 95px;
-  font-size: 27px;
+  font-size: 1.5em;
   font-weight: bold;
 }
 
@@ -99,8 +101,37 @@ body {
 }
 
 #rf-url {
-  margin: 33px 95px 33px 95px;
+  display: grid;
+  margin: 10px 95px 25px 95px;
   font-size: 15px;
+  justify-content: center;
+}
+
+.motivation-container {
+  margin: 33px 95px 33px 95px;
+}
+
+#motivation-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+#motivation-text {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.motivation-key {
+  font-weight: bold;
+}
+
+.motivation-value {
+  margin-left: 4px;
+}
+
+ul ul {
+  list-style-type: circle;
+  padding-left: 20px;
 }
 
 .form-footer {
