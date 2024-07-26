@@ -7,31 +7,14 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install necessary build dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
-    libc-dev \
-    make \
-    libffi-dev \
-    libssl-dev \
-    gfortran \
-    libopenblas-dev \
-    cmake \
-    && apt-get clean
-
-# Copy the current directory contents into the container at /app
-COPY . /app
-
 # Upgrade pip and install the required Python packages
+COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Copy the current directory contents into the container
+COPY . .
 
-# Define environment variable
-ENV FLASK_APP=app.py
+ENV FLASK_APP=run.py
 
-# Run app.py when the container launches
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]

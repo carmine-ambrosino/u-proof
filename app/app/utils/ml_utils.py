@@ -4,8 +4,11 @@ from bs4 import BeautifulSoup
 from joblib import load
 import numpy as np
 import pandas as pd
+from flask import jsonify
+from app.config import Config
+from app.utils.utils import check_url
 
-model = load('u_proof_model_rf.pkl')
+model = load(Config.ML_MODEL)
 
 def predict_phishing(features):
     feature_names = [
@@ -18,14 +21,13 @@ def predict_phishing(features):
     
     # Create a DataFrame with the features
     feature_df = pd.DataFrame([feature_values], columns=feature_names)
-    # print(feature_df[['SpecialCharRatioInURL', 'LetterRatioInURL',  'NoOfSpecialCharsInURL', 'HasHiddenFields']])
 
     prediction = model.predict(feature_df)[0]
     prediction_proba = model.predict_proba(feature_df)[0]
 
     result = {
-        'prediction': 'Phishing' if prediction == 0 else 'Legitimate',
-        'prediction_proba':  prediction_proba[0]*100 if prediction == 0 else prediction_proba[1]*100
+        'prediction': 0 if prediction == 0 else 1,
+        'proba':  float(round(prediction_proba[0], 4)) if prediction == 0 else float(round(prediction_proba[1], 4))
     }
 
     return result
@@ -40,9 +42,6 @@ def extract_features(url):
     return features
 
 def extract_url_features(url):
-    """
-    Extracts features directly from the URL.
-    """
     features = {}
     features['IsHTTPS'] = 1 if url.startswith('https') else 0
     features['HasPortNumber'] = 1 if re.search(r':[0-9]', url) else 0
@@ -50,9 +49,6 @@ def extract_url_features(url):
     return features
 
 def extract_html_features(url):
-    """
-    Extracts features from the HTML content of the page.
-    """
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
@@ -74,23 +70,14 @@ def extract_html_features(url):
         return None
 
 def check_description(soup):
-    """
-    Checks if the page has a meta description tag.
-    """
     description = soup.find('meta', attrs={'name': 'description'})
     return 1 if description else 0
 
 def check_favicon(soup):
-    """
-    Checks if the page has a favicon.
-    """
     favicon = soup.find('link', rel=lambda value: value and 'icon' in value)
     return 1 if favicon else 0
 
 def check_responsive(soup):
-    """
-    Checks if the page is responsive.
-    """
     meta_tags = soup.find_all('meta', attrs={'name': 'viewport'})
     for tag in meta_tags:
         content = tag.get('content', '').lower()
@@ -99,24 +86,15 @@ def check_responsive(soup):
     return 0
 
 def check_hidden_fields(soup):
-    """
-    Checks if the page has hidden input fields.
-    """
     hidden_fields = soup.find_all('input', type='hidden')
     return 1 if hidden_fields else 0
 
 def check_title(soup):
-    """
-    Checks if the page has a title tag.
-    """
     title = soup.find('title')
     return 1 if title else 0
 
 def check_social_net(soup):
-    """
-    Checks if the page has social network links or meta tags.
-    """
-    social_keywords = ['twitter.com', 'facebook.com', 'linkedin.com', 'instagram.com', 'youtube.com', 'pinterest.com']
+    social_keywords = ['twitter.com','facebook.com', 'linkedin.com', 'instagram.com', 'youtube.com', 'pinterest.com']
     links = soup.find_all('a', href=True)
     for link in links:
         if any(keyword in link['href'] for keyword in social_keywords):
@@ -131,19 +109,20 @@ def check_social_net(soup):
 
     return 0
 
-def check_url(url):
-    """
-    Checks if the url exists.
-    """
-    try:
-        # Send a GET request to the link
-        response = requests.get(url)
-        # Check if the status code is 200 (OK)
-        if response.status_code == 200:
-            return True
-        else:
-            return False
-    except requests.exceptions.RequestException as e:
-        # In case of exceptions
-        print(f"RequestException: {e}")
-        return False
+def get_ml_response(url):
+    if check_url(url):
+        features = extract_features(url)
+        if features is None:
+            return {'error': 'Failed to extract features'}, 500
+        
+        prediction_result = predict_phishing(features)
+
+        # Combine features and prediction result
+        response = {
+            'url': url,
+            **prediction_result
+        }
+
+        return response, 200
+    else:
+        return {'error': 'URL does not exist'}, 400

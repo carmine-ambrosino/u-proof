@@ -9,12 +9,13 @@
 
 # Ignore pycache
 app/__pycache__
-app/controllers/__pycache__/
-app/dtos/__pycache__/
-app/models/__pycache__/
-app/routes/__pycache__/
-app/services/__pycache__/
-app/utils/__pycache__/
+app/app/__pycache__
+app/app/controllers/__pycache__/
+app/app/dtos/__pycache__/
+app/app/models/__pycache__/
+app/app/routes/__pycache__/
+app/app/services/__pycache__/
+app/app/utils/__pycache__/
 
 # Ignore DS_Store file
 *.DS_Store
