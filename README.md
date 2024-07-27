@@ -6,6 +6,11 @@ u-proof is a tool that harnesses the power of machine learning and LLM to identi
 ## Preview
 ![](./app/app/static/images/preview.png)
 
+## ⚠️ Note
+- Make sure to set `API_LLM` and `MODELS` in `app/app/config.py` to properly configure the connection to [LM studio](https://lmstudio.ai/).
+
+- Load first and enable JSON mode for LLM models in [LM studio](https://lmstudio.ai/).
+
 ## Used technologies
 - **Flask:** Lightweight micro web framework written in Python.
 - **LM Studio:** Tool to run local LLMs.
@@ -27,8 +32,3 @@ cd u-proof
 
 docker compose up -d
 ```
-
-## ⚠️ Note
-- Make sure to set `API_LLM` and `MODELS` in `app/app/config.py` to properly configure the connection to [LM studio](https://lmstudio.ai/).
-
-- Load first and enable JSON mode for LLM models in [LM studio](https://lmstudio.ai/).
