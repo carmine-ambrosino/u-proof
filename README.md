@@ -1,5 +1,6 @@
 # u-proof
 ![](./app/app/static/images/uproof.png)
+
 u-proof is a tool that harnesses the power of machine learning and LLM to identify potential phishing websites.
 
 ## Preview
