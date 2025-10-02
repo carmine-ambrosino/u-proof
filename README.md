@@ -36,7 +36,7 @@ docker compose up -d
 ## Example Predictions: Legitimate vs Phishing
 
 <p align="center">
-  <img src="./app/app/static/images/PredizioneCorretta.png" width="450"/>
-  <img src="./app/app/static/images/PredizionePhishing.png" width="510"/>
+  <img src="./app/app/static/images/PredizioneCorretta.png" width="470"/>
+  <img src="./app/app/static/images/PredizionePhishing.png" width="530"/>
 </p>
 
