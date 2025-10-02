@@ -35,12 +35,12 @@ docker compose up -d
 
 ## App Screenshots
 <p align="center">
-  <img src="./app/app/static/images/Iniziale.png" width="500"/>
-  <img src="./app/app/static/images/url_error.png" width="700"/>
+  <img src="./app/app/static/images/Iniziale.png" width="400"/>
+  <img src="./app/app/static/images/url_error.png" width="500"/>
 </p>
 
 <p align="center">
-  <img src="./app/app/static/images/PredizioneCorretta.png" width="500"/>
-  <img src="./app/app/static/images/PredizionePhishing.png" width="700"/>
+  <img src="./app/app/static/images/PredizioneCorretta.png" width="400"/>
+  <img src="./app/app/static/images/PredizionePhishing.png" width="500"/>
 </p>
 
