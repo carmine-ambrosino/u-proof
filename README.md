@@ -37,6 +37,6 @@ docker compose up -d
 
 <p align="center">
   <img src="./app/app/static/images/PredizioneCorretta.png" width="470"/>
-  <img src="./app/app/static/images/PredizionePhishing.png" width="533"/>
+  <img src="./app/app/static/images/PredizionePhishing.png" width="534"/>
 </p>
 
