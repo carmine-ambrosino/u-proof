@@ -33,7 +33,7 @@ docker compose up -d
 ## Project structure
 ![](./app/app/static/images/ProjectStructure.gif)
 
-## App Screenshots
+## Tool Screenshots
 <p align="center">
   <img src="./app/app/static/images/Iniziale.png" width="458"/>
   <img src="./app/app/static/images/url_error.png" width="500"/>
