@@ -35,7 +35,7 @@ docker compose up -d
 
 ## App Screenshots
 <p align="center">
-  <img src="./app/app/static/images/Iniziale.png" width="460"/>
+  <img src="./app/app/static/images/Iniziale.png" width="458"/>
   <img src="./app/app/static/images/url_error.png" width="500"/>
 </p>
 
