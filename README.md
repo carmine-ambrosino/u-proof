@@ -34,7 +34,13 @@ docker compose up -d
 ![](./app/app/static/images/ProjectStructure.gif)
 
 ## App Screenshots
-![](./app/app/static/images/Iniziale.png)
-![](./app/app/static/images/PredizioneCorretta.png)
-![](./app/app/static/images/PredizionePhishing.png)
-![](./app/app/static/images/url_error.png)
+<p align="center">
+  <img src="./app/app/static/images/Iniziale.png" width="300"/>
+  <img src="./app/app/static/images/url_error.png" width="300"/>
+</p>
+
+<p align="center">
+  <img src="./app/app/static/images/PredizioneCorretta.png" width="300"/>
+  <img src="./app/app/static/images/PredizionePhishing.png" width="300"/>
+</p>
+
