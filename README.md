@@ -33,6 +33,118 @@ docker compose up -d
 ## Project structure
 ![](./app/app/static/images/ProjectStructure.gif)
 
+# Model Configuration and Hyperparameter Optimization
+
+In what follow we report the hyperparameter search space and the best configurations obtained via Grid Search for each model.
+
+---
+
+## Logistic Regression
+
+| Parameter | Grid Search Values | Best Value |
+|---------|-------------------|-----------|
+| tfidf__max_features | 1000, 2000 | 1000 |
+| penalty | l1, l2 | l2 |
+| class_weight | None, balanced | None |
+| max_iter | 100 – 1100 (500 values) | — |
+
+---
+
+## Bernoulli Naive Bayes
+
+| Parameter | Grid Search Values | Best Value |
+|---------|-------------------|-----------|
+| tfidf__max_features | 1000, 2000 | 2000 |
+| alpha | 0.01, 0.001 | 0.01 |
+| fit_prior | True, False | True |
+
+---
+
+## K-Nearest Neighbors (KNN)
+
+| Parameter | Grid Search Values | Best Value |
+|---------|-------------------|-----------|
+| tfidf__max_features | 1000, 2000 | 1000 |
+| n_neighbors | 1 – 100 (step 25) | 50 |
+| leaf_size | 25, 50 | 25 |
+| metric | euclidean, minkowski | euclidean |
+| weights | uniform, distance | uniform |
+
+---
+
+## Support Vector Machine (SVM)
+
+| Parameter | Grid Search Values | Best Value |
+|---------|-------------------|-----------|
+| tfidf__max_features | 1000, 2000 | 1000 |
+| C | 1 – 13 (5 values) | 7 |
+| probability | True, False | False |
+| decision_function_shape | ovo, ovr | ovr |
+
+---
+
+## Decision Tree
+
+| Parameter | Grid Search Values | Best Value |
+|---------|-------------------|-----------|
+| tfidf__max_features | 1000, 2000 | 1000 |
+| max_depth | 1 – 50 (step 25) | 25 |
+| criterion | gini, entropy | entropy |
+
+---
+
+## Random Forest
+
+| Parameter | Grid Search Values | Best Value |
+|---------|-------------------|-----------|
+| n_estimators | 50, 100, 200 | 50 |
+| max_depth | 2, 3, 10, 20, None | 10 |
+| criterion | gini, entropy | gini |
+
+---
+
+## AdaBoost
+
+| Parameter | Grid Search Values | Best Value |
+|---------|-------------------|-----------|
+| n_estimators | 50, 100, 200 | 50 |
+| learning_rate | 0.01, 0.1, 1.0 | 0.1 |
+
+---
+
+## Stacking Classifier
+
+The Stacking Classifier is a meta-model constructed by combining the previously optimized base classifiers.
+Therefore, it does not define an independent hyperparameter search space; its behavior is entirely determined by the tuned base models.
+
+## Experimental Result
+
+### Machine Learning Models
+| Model                     | Accuracy | Precision_0 | Recall_0 | F1-score_0 | Precision_1 | Recall_1 | F1-score_1 |
+|---------------------------|---------:|------------:|---------:|-----------:|------------:|---------:|-----------:|
+| **Logistic Regression**   |      92% |         90% |      92% |        91% |         94% |      93% |        93% |
+| **KNN**                   |      98% |        100% |      97% |        98% |         97% |     100% |        98% |
+| **Decision Tree**         |      95% |         91% |      97% |        94% |         98% |      93% |        95% |
+| **Bernoulli Naive Bayes** |      88% |        100% |      72% |        84% |         83% |     100% |        91% |
+| **SVM**                   |      95% |         93% |      96% |        94% |         97% |      94% |        96% |
+| **Random Forest**         |      96% |         97% |      97% |        97% |         98% |      97% |        97% |
+| **AdaBoost**              |      95% |         91% |      97% |        94% |         98% |      93% |        95% |
+| **Stacking Classifier**   |      95% |         93% |      96% |        94% |         97% |      94% |        96% |
+
+### Large Language Models
+| Model               | Accuracy | Precision_0 | Recall_0 | F1-score_0 | Precision_1 | Recall_1 | F1-score_1 |
+|---------------------|---------:|------------:|---------:|-----------:|------------:|---------:|-----------:|
+| **GPT 4o**          |     100% |       100% |      100% |       100% |        100% |     100% |       100% |
+| **GPT 4o mini**     |      95% |       100% |       90% |        90% |         95% |     100% |        97% |
+| **Claude 3 Sonnet** |      85% |       100% |       70% |        82% |         85% |     100% |        92% |
+| **Claude 3 Haiku**  |      95% |       100% |       90% |        90% |         95% |     100% |        97% |
+| **Copilot**         |     100% |       100% |      100% |       100% |        100% |     100% |       100% |
+| **Gemini**          |      80% |        80% |       80% |        80% |         80% |      80% |        80% |
+| **Llama 3.1 8B**    |      90% |        90% |       90% |        90% |         90% |      90% |        90% |
+| **Mistal 7B**       |      85% |       100% |       70% |        82% |         85% |     100% |        92% |
+| **Llama 2 7B**      |      85% |        76% |       82% |        79% |         82% |      72% |        77% |
+| **Llama 2 13B**     |      85% |        80% |       85% |        82% |         86% |      76% |        81% |
+
 ## Example Predictions: Legitimate vs Phishing
 
 <p align="center">
