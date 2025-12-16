@@ -35,9 +35,23 @@ docker compose up -d
 
 # Model Configuration and Hyperparameter Optimization
 
-In what follow we report the hyperparameter search space and the best configurations obtained via Grid Search for each model.
+In what follows we report the hyperparameter search space and the best configurations obtained via Grid Search for each model.
 
 ---
+
+## Data Split and Cross-Validation
+
+The dataset was divided into training and test sets using a hold-out strategy with an 80/20 split. To ensure reproducibility, a fixed random seed was adopted (`random_state = 42`).
+
+Hyperparameter optimization was performed using K-Fold cross-validation on the training set, with shuffling enabled and the following configuration:
+- number of folds: 2
+- shuffle: enabled
+- random seed: 42
+
+## Dataset
+
+The dataset contains $134\text{,}847$ phishing URLs and $99\text{,}722$ legitimate URLs, each described by $56$ categorical and numerical features.
+
 
 ## Logistic Regression
 
