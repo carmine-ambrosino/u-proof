@@ -16,12 +16,26 @@ function isValidUrl(url) {
 function validateUrl() {
   const urlInput = document.getElementById("url-input");
   const submitBtn = document.getElementById("submit-btn");
+  const urlHelper = document.getElementById("url-helper");
   const urlValue = urlInput.value;
   const isValid = isValidUrl(urlValue);
 
   urlInput.classList.toggle("valid", isValid);
-  urlInput.classList.toggle("invalid", !isValid);
+  urlInput.classList.toggle("invalid", !isValid && urlValue.length > 0);
   submitBtn.disabled = !isValid;
+
+  if (urlValue.length === 0) {
+    urlHelper.textContent = "Enter a valid URL starting with http:// or https://";
+    urlInput.classList.remove("invalid", "valid");
+  } else if (isValid) {
+    urlHelper.textContent = "URL looks valid and ready to scan.";
+  } else {
+    if (!urlValue.startsWith("http://") && !urlValue.startsWith("https://")) {
+      urlHelper.textContent = "Missing protocol: must start with http:// or https://";
+    } else {
+      urlHelper.textContent = "Please enter a complete and valid URL.";
+    }
+  }
 }
 
 function handleFormSubmit(event) {

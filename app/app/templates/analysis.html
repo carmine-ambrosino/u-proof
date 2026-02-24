@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-proof prediction</title>
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{{ url_for('static', filename='images/favicon.ico') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/analysis-style.css') }}"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo-container">
-        <a href="/api/v1">
-          <img
-            src="{{ url_for('static', filename='images/uproof.png') }}"
-            id="logo"
-            alt="u-proof logo"
-          />
-        </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>u-proof | Prediction Results</title>
+
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis-style.css') }}" />
+</head>
+
+<body>
+  <main class="container">
+    <header class="logo-container">
+      <a href="/api/v1">
+        <img src="{{ url_for('static', filename='images/uproof.png') }}" id="logo" alt="u-proof logo" />
+      </a>
+    </header>
+
+    <section class="results-card">
+      <a href="/api/v1" class="back-home" title="Go back">❮ Back</a>
+
+      <div id="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Analyzing URL...</p>
       </div>
 
-      <a href="/api/v1" class="back-home">❮</a>
-      <div id="loading"><strong>💭... Prediction ... 💭</strong></div>
       <div id="results-container" style="display:none;"></div>
-      
-      <div class="form-footer">Made with ❤️</div>
 
-      </div>
-    </div>
+      <footer class="form-footer">
+        Made with ❤️ for a safer web
+      </footer>
+    </section>
+  </main>
 
-    <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+</body>
 
-  </body>
 </html>

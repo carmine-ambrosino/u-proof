@@ -1,63 +1,47 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-proof</title>
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{{ url_for('static', filename='images/favicon.ico') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo-container">
-        <img
-          src="{{ url_for('static', filename='images/uproof.png') }}"
-          id="logo"
-          alt="u-proof logo"
-        />
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>u-proof | AI Phishing Defender</title>
 
-      <div class="form-container">
-        <p class="lead">
-          Check <i>phishing link</i> with <strong>u-proof</strong> (ML model).
-        </p>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
 
-        <form id="url-form" action="/" method="post">
-          <div class="link-input">
-            <input
-              type="url"
-              id="url-input"
-              name="url"
-              placeholder="https://www.example.com"
-              required
-            />
-          </div>
+<body>
+  <main class="container">
+    <header class="logo-container">
+      <img src="{{ url_for('static', filename='images/uproof.png') }}" id="logo" alt="u-proof logo" />
+    </header>
 
-          <div class="actions">
-            <button
-              id="submit-btn"
-              name="button"
-              type="submit"
-              class="btn"
-              disabled
-            >
-              Scan
-            </button>
-          </div>
-        </form>
+    <section class="form-container">
+      <p class="lead">
+        Check <i>phishing links</i> with <strong>u-proof</strong><br>
+        <small style="color: var(--muted-text); font-size: 0.9rem;">Advanced ML-powered security</small>
+      </p>
 
-        <div class="form-footer">Made with ❤️</div>
-      </div>
-    </div>
+      <form id="url-form" action="/" method="post">
+        <div class="link-input">
+          <input type="url" id="url-input" name="url" placeholder="https://www.example.com" required />
+          <span id="url-helper" class="helper-text">Enter a valid URL starting with http:// or https://</span>
+        </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  </body>
+        <div class="actions">
+          <button id="submit-btn" name="button" type="submit" class="btn" disabled>
+            Scan URL
+          </button>
+        </div>
+      </form>
+
+      <footer class="form-footer">
+        Made with ❤️ for a safer web
+      </footer>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
 </html>

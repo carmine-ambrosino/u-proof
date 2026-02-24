@@ -1,83 +1,128 @@
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/Roboto-Regular.ttf") format("truetype");
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/Roboto-Bold.ttf") format("truetype");
-  font-weight: bold;
+:root {
+  --primary-color: #000065;
+  --secondary-color: #333399;
+  --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --text-color: #1a202c;
+  --muted-text: #718096;
+  --border-radius: 16px;
+  --transition-speed: 0.3s;
+  --phishing-color: linear-gradient(90deg, #e53e3e, #c53030);
+  --legitimate-color: linear-gradient(90deg, #38a169, #2f855a);
 }
 
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f4f4f9;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
   margin: 0;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
 }
 
 .container {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  width: 700px;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .logo-container {
-  display: grid;
-  margin: 50px 50px 0 50px;
-  justify-content: center;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 #logo {
-  width: 445px;
-  height: 190px;
+  max-width: 100%;
+  width: 320px;
+  height: auto;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
-#response-container {
-  background: #f9fafb;
-  border: 2px solid #f9fafb;
-  border-radius: 10px;
-  box-sizing: border-box;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-
-.result-field {
-  margin: 33px 0;
+.results-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
 .back-home {
-  display: inline-block;
-  width: 30px;
-  height: 35px;
-  text-align: center;
-  margin: 20px 0px 15px 56px;
-  font-size: 24px;
-  color: #000065;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--primary-color);
   text-decoration: none;
+  font-weight: 600;
+  transition: transform var(--transition-speed);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-#loading {
+.back-home:hover {
+  transform: translateX(-3px);
+}
+
+.loading-state {
   text-align: center;
-  font-size: 35px;
-  font-weight: bold;
+  padding: 3rem 0;
 }
 
-.progress {
-  background: #e0e0e0;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  height: 33px;
-  margin: 0px 86px 0px 86px;
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 101, 0.1);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.result-field {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  word-break: break-all;
+  border: 1px solid #edf2f7;
+  color: var(--muted-text);
+  text-align: center;
+}
+
+.progress-container {
+  margin: 2rem 0;
 }
 
 .progress-title {
-  margin: 10px 95px 15px 95px;
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.progress {
+  background: #edf2f7;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 28px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .progress-bar {
@@ -85,80 +130,78 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 1em;
-  border-radius: 10px;
-  transition: width 0.3s ease-in-out, background-size 0.3s ease-in-out;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #progress-bar-Phishing {
-  background: linear-gradient(90deg, #c5031d, red);
+  background: var(--phishing-color);
 }
 
 #progress-bar-Legitimate {
-  background: linear-gradient(90deg, #4caf50, #81c784);
-}
-
-#rf-url {
-  display: grid;
-  margin: 10px 95px 25px 95px;
-  font-size: 19px;
-  justify-content: center;
+  background: var(--legitimate-color);
 }
 
 .motivation-container {
-  margin: 33px 95px 33px 95px;
+  margin-top: 2.5rem;
+  text-align: left;
 }
 
 #motivation-title {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #edf2f7;
 }
 
 #motivation-text {
-  list-style-type: disc;
-  padding-left: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.motivation-key {
+#motivation-text li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+#motivation-text li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
   font-weight: bold;
 }
 
-.motivation-value {
-  margin-left: 4px;
+.motivation-key {
+  font-weight: 600;
+  color: var(--text-color);
 }
 
-ul ul {
-  list-style-type: circle;
-  padding-left: 20px;
+.motivation-value {
+  color: var(--muted-text);
 }
 
 .form-footer {
   text-align: center;
-  margin-top: 30px;
-  font-size: 0.9em;
-  color: #777;
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: var(--muted-text);
 }
 
-@media only screen and (max-width: 600px) {
-  .container {
-    max-width: 90%;
+@media (max-width: 480px) {
+  .results-card {
+    padding: 1.5rem;
   }
 
-  .logo-container {
-    margin: 10% 5% 0 5%;
-  }
-
-  /* Media query for 450px screen*/
-  @media only screen and (max-width: 450px) {
-    #logo {
-      width: 100%;
-      height: auto;
-    }
-
-    .back-home {
-      margin: 20px 0px 15px 5px;
-    }
+  .back-home {
+    position: static;
+    margin-bottom: 1.5rem;
   }
 }
